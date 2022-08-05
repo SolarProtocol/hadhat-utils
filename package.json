@@ -1,0 +1,69 @@
+{
+  "version": "1.0.0",
+  "name": "@solarprotocol/hardhat-utils",
+  "author": "0xFluffyBeard",
+  "module": "dist/hardhat-utils.esm.js",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SolarProtocol/hadhat-utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SolarProtocol/hadhat-utils/issues"
+  },
+  "homepage": "https://github.com/SolarProtocol/hadhat-utils#readme",
+  "size-limit": [
+    {
+      "path": "dist/hardhat-utils.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/hardhat-utils.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^8.0.0",
+    "husky": "^8.0.1",
+    "size-limit": "^8.0.0",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.4.0",
+    "typescript": "^3.9.10"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "ethers": "^5.6.8",
+    "hardhat": "^2.9.7",
+    "hardhat-deploy": "^0.11.10",
+    "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13"
+  }
+}
