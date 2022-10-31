@@ -5,7 +5,7 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types';
 export interface FormatMigrationOptions {
   contract: string;
   signature?: {
-    abi: string;
+    abi?: string[];
     functionFragment: string;
     args?: any[];
   };
@@ -29,7 +29,9 @@ export async function formatMigration(
 
   let data: string = '0x';
   if (signature) {
-    const iface = new ethers.utils.Interface([signature.abi]);
+    const iface = new ethers.utils.Interface(
+      signature.abi ?? deployedContract.abi
+    );
     data = iface.encodeFunctionData(signature.functionFragment, signature.args);
   }
 
