@@ -5,10 +5,10 @@ import { HardhatRuntimeEnvironment } from 'hardhat/types';
 export interface FormatMigrationOptions {
   contract: string;
   signature?: {
-    abi: string;
+    abi: string[];
     functionFragment: string;
+    args?: any[];
   };
-  args?: any[];
   from?: string;
   log?: boolean;
 }
@@ -20,7 +20,7 @@ export async function formatMigration(
   const { deployments, getNamedAccounts, ethers } = hre;
   const { deploy } = deployments;
   const { deployer } = await getNamedAccounts();
-  const { contract, signature, args, from, log } = options;
+  const { contract, signature, from, log } = options;
 
   const deployedContract = await deploy(contract, {
     from: from || deployer,
@@ -29,8 +29,8 @@ export async function formatMigration(
 
   let data: string = '0x';
   if (signature) {
-    const iface = new ethers.utils.Interface([signature.abi]);
-    data = iface.encodeFunctionData(signature.functionFragment, args);
+    const iface = new ethers.utils.Interface(signature.abi);
+    data = iface.encodeFunctionData(signature.functionFragment, signature.args);
   }
 
   return {
